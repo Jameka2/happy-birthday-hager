@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رسالة حب 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Amiri', serif;
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFC9DD 25%, #FFB3C6 50%, #FFDAB9 75%, #FFF9F0 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 45px;
+            opacity: 0;
+            animation: float 15s infinite ease-in-out;
+            filter: drop-shadow(0 0 15px rgba(255, 182, 193, 0.6));
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 0.9;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .floating-heart:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 12s; }
+        .floating-heart:nth-child(2) { left: 25%; animation-delay: 2s; animation-duration: 15s; }
+        .floating-heart:nth-child(3) { left: 40%; animation-delay: 4s; animation-duration: 13s; }
+        .floating-heart:nth-child(4) { left: 55%; animation-delay: 1s; animation-duration: 14s; }
+        .floating-heart:nth-child(5) { left: 70%; animation-delay: 3s; animation-duration: 16s; }
+        .floating-heart:nth-child(6) { left: 85%; animation-delay: 5s; animation-duration: 13s; }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .page-title {
+            font-size: 3.5em;
+            color: #D4567A;
+            margin-bottom: 50px;
+            text-shadow: 3px 3px 10px rgba(212, 86, 122, 0.4);
+            font-weight: 700;
+            animation: titlePulse 2s infinite;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* القلب الكبير */
+        .heart-container {
+            position: relative;
+            width: 650px;
+            height: 600px;
+            margin: 0 auto 50px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .big-heart {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 550px;
+            color: transparent;
+            animation: heartBeat 2s infinite;
+            filter: drop-shadow(0 25px 60px rgba(234, 184, 167, 0.6));
+            will-change: transform;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+
+        .big-heart::before {
+            content: "❤️";
+            background: linear-gradient(135deg, #FFB6C1 0%, #FFD1DC 50%, #FFC0CB 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 30px rgba(255, 182, 193, 0.8));
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: translateZ(0) scale(1); }
+            10%, 30% { transform: translateZ(0) scale(1.06); }
+            20%, 40% { transform: translateZ(0) scale(1); }
+        }
+
+        /* الرسائل داخل القلب */
+        .messages-inside {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 65%;
+            z-index: 2;
+            padding: 40px 30px;
+        }
+
+        .message {
+            font-size: 1.4em;
+            color: #630404;
+            margin: 22px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            line-height: 1.9;
+            font-weight: 700;
+            text-shadow: 0 2px 5px rgba(255, 255, 255, 0.9);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        .message:hover {
+            transform: scale(1.15) translateY(0);
+            color: #FF1493;
+            text-shadow: 0 4px 15px rgba(255, 20, 147, 0.6);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .message.show {
+            animation: fadeInUp 2s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* زر الرجوع */
+        .back-button {
+            display: inline-block;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #FFB3C6, #EAB8A7, #FFDAB9);
+            color: #630404;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.4em;
+            font-weight: 700;
+            box-shadow: 0 15px 40px rgba(234, 184, 167, 0.5);
+            transition: all 0.4s ease;
+            border: 3px solid rgba(255, 182, 193, 0.3);
+            font-family: 'Tajawal', sans-serif;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+
+        .back-button:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(234, 184, 167, 0.7);
+            background: linear-gradient(135deg, #FFDAB9, #EAB8A7, #FFB3C6);
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 2em;
+            color: #D4567A;
+            font-weight: 700;
+            text-shadow: 2px 2px 6px rgba(212, 86, 122, 0.3);
+            transition: all 0.3s ease;
+            cursor: default;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .footer:hover {
+            transform: scale(1.1);
+            color: #FFB3C6;
+        }
+
+            @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+            
+            .page-title {
+                font-size: 2.5em;
+                margin-bottom: 30px;
+            }
+            
+            .heart-container {
+                width: 400px;
+                height: 400px;
+            }
+            
+            .big-heart {
+                font-size: 350px;
+                animation: none;
+                transform: translateZ(0) scale(1);
+            }
+            
+            .messages-inside {
+                width: 75%;
+                padding: 20px;
+            }
+            
+            .message {
+                font-size: 1em;
+                margin: 15px 0;
+            }
+            
+            .message:hover {
+                transform: scale(1.08) translateY(0);
+            }
+            
+            .back-button {
+                font-size: 1.2em;
+                padding: 18px 40px;
+            }
+            
+            .footer {
+                font-size: 1.6em;
+            }
+            
+            .floating-hearts {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts">
+        <div class="floating-heart">💕</div>
+        <div class="floating-heart">❤️</div>
+        <div class="floating-heart">💖</div>
+        <div class="floating-heart">💗</div>
+        <div class="floating-heart">💕</div>
+        <div class="floating-heart">💓</div>
+    </div>
+
+    <div class="container">
+        <h1 class="page-title">🎀</h1>
+
+        <div class="heart-container">
+            <div class="big-heart"></div>
+            <div class="messages-inside">
+                <div class="message">في ذكرى ميلادك، تبتسم السماء لأنها أهدت الأرض ملاكًا على هيئة بشر 🤍</div>
+                <div class="message">في يوم ميلادك، وُلدت حكاية من أجمل حكايات الدنيا 🎂</div>
+                <div class="message">أجمل ما في العشرين من أكتوبر إنه اليوم اللي جيتي فيه للدنيا 🌷</div>
+                <div class="message">كل سنة وإنتِ حكاية حلوة، مهما اتكررت تفضل مميزة</div>
+
+            </div>
+        </div>
+
+        <button class="back-button" onclick="goToJourney()">🔄 memories </button>
+
+        <div class="footer">
+            💕 GOGO 💕
+        </div>
+    </div>
+
+    <script>
+        const messages = document.querySelectorAll('.message');
+        
+        messages.forEach((message, index) => {
+            setTimeout(() => {
+                message.classList.add('show');
+            }, index * 2500);
+        });
+
+        function goToJourney() {
+            window.location.href = 'journey.html';
+        }
+    </script>
+</body>
+</html>

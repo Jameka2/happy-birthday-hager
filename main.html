@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>happy birthday Hagoura 🎀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Scheherazade New', serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffc4d6 0%, #ffb3c6 25%, #ffa3b8 50%, #ff93aa 75%, #ff849c 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        /* خلفية القلوب */
+        .hearts-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 105, 180, 0.3);
+            transform: rotate(45deg);
+            animation: float 12s infinite ease-in-out;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 105, 180, 0.3);
+            border-radius: 50%;
+        }
+
+        .heart::before { top: -15px; left: 0; }
+        .heart::after { left: 15px; top: 0; }
+
+        .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 30%; animation-delay: 2s; }
+        .heart:nth-child(3) { left: 50%; animation-delay: 4s; }
+        .heart:nth-child(4) { left: 70%; animation-delay: 6s; }
+        .heart:nth-child(5) { left: 85%; animation-delay: 1s; }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(45deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(120vh) rotate(45deg); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* المظروف */
+        .envelope-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 260px;
+            margin: 0 auto;
+            cursor: pointer;
+            transition: all 0.8s ease;
+        }
+
+        .envelope-wrapper.clicked {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+
+        /* الجزء الخلفي من المظروف */
+        .envelope-back {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #ff93aa, #ffb3c6);
+            border-radius: 5px;
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.15),
+                inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .envelope-back::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        /* الغطاء الأمامي */
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            border-bottom: 130px solid #ff69b4;
+            transform-origin: top center;
+            z-index: 3;
+            filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        .envelope-flap::before {
+            content: '';
+            position: absolute;
+            top: 128px;
+            left: -200px;
+            width: 400px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(139, 0, 69, 0.3) 20%, 
+                rgba(139, 0, 69, 0.3) 80%, 
+                transparent
+            );
+        }
+
+        /* الختم الشمعي */
+        .wax-seal {
+            position: absolute;
+            top: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 55px;
+            height: 55px;
+            background: radial-gradient(circle, #ff1493, #c2185b);
+            border-radius: 50%;
+            z-index: 4;
+            box-shadow: 0 3px 10px rgba(194, 24, 91, 0.5);
+        }
+
+        .wax-seal::before {
+            content: '💕';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 26px;
+        }
+
+        /* نص "اضغطي على المظروف" */
+        .tap-instruction {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Pacifico', cursive;
+            font-size: 1.4em;
+            color: #c2185b;
+            animation: pulse 2s infinite;
+            white-space: nowrap;
+            text-shadow: 0 2px 4px rgba(194, 24, 91, 0.2);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.6; transform: translateX(-50%) scale(1.08); }
+        }
+
+        /* الرسالة */
+        .message-box {
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+            transition: all 1s ease;
+            pointer-events: none;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .message-box.show {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+
+        .message-paper {
+            background: linear-gradient(to bottom, #fffef9, #fffef0);
+            padding: 40px 30px;
+            border-radius: 8px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(194, 24, 91, 0.1);
+            position: relative;
+        }
+
+        /* خطوط الورقة */
+        .message-paper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 30px;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                rgba(255, 105, 180, 0.15) 10%, 
+                rgba(255, 105, 180, 0.15) 90%, 
+                transparent 100%
+            );
+        }
+
+        .message-text {
+            font-size: 1.4em;
+            line-height: 2.2;
+            color: #c2185b;
+            font-family: 'Scheherazade New', serif;
+            text-shadow: 0 1px 2px rgba(194, 24, 91, 0.1);
+            text-align: right;
+            min-height: 300px;
+            padding-left: 10px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.3em;
+            background-color: #ff1493;
+            margin-right: 2px;
+            animation: blink 0.8s infinite;
+            vertical-align: text-bottom;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        .highlight {
+            color: #ff1493;
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+
+        .signature {
+            margin-top: 25px;
+            text-align: left;
+            font-size: 1.3em;
+            color: #ff1493;
+            font-style: italic;
+        }
+
+        /* زر الانتقال */
+        .continue-btn {
+            margin-top: 30px;
+            padding: 18px 45px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.4em;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'Pacifico', cursive;
+            opacity: 0;
+            transform: translateY(20px);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .continue-btn.show {
+            animation: fadeInBtn 0.8s forwards;
+        }
+
+        @keyframes fadeInBtn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(255, 20, 147, 0.6);
+        }
+
+        .continue-btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+
+            .envelope-wrapper {
+                max-width: 320px;
+                height: 220px;
+            }
+
+            .envelope-back {
+                height: 180px;
+            }
+
+            .envelope-flap {
+                border-left: 160px solid transparent;
+                border-right: 160px solid transparent;
+                border-bottom: 105px solid #ff69b4;
+            }
+
+            .envelope-flap::before {
+                top: 103px;
+                left: -160px;
+                width: 320px;
+            }
+
+            .wax-seal {
+                top: 70px;
+                width: 45px;
+                height: 45px;
+            }
+
+            .wax-seal::before {
+                font-size: 22px;
+            }
+
+            .tap-instruction {
+                font-size: 1.2em;
+                bottom: -70px;
+            }
+
+            .message-paper {
+                padding: 30px 20px;
+            }
+
+            .message-paper::before {
+                left: 20px;
+            }
+
+            .message-text {
+                font-size: 1.2em;
+                line-height: 2;
+                min-height: 350px;
+            }
+
+            .signature {
+                font-size: 1.1em;
+            }
+
+            .continue-btn {
+                font-size: 1.2em;
+                padding: 15px 35px;
+                margin-top: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .envelope-wrapper {
+                max-width: 280px;
+                height: 200px;
+            }
+
+            .envelope-back {
+                height: 160px;
+            }
+
+            .envelope-flap {
+                border-left: 140px solid transparent;
+                border-right: 140px solid transparent;
+                border-bottom: 92px solid #ff69b4;
+            }
+
+            .envelope-flap::before {
+                top: 90px;
+                left: -140px;
+                width: 280px;
+            }
+
+            .wax-seal {
+                top: 60px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .wax-seal::before {
+                font-size: 20px;
+            }
+
+            .message-text {
+                font-size: 1.1em;
+                line-height: 1.9;
+            }
+
+            .signature {
+                font-size: 1em;
+            }
+
+            .continue-btn {
+                font-size: 1.1em;
+                padding: 14px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-background">
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+    </div>
+
+    <div class="container">
+        <!-- المظروف -->
+        <div class="envelope-wrapper" id="envelope">
+            <div class="envelope-back"></div>
+            <div class="envelope-flap"></div>
+            <div class="wax-seal"></div>
+            <div class="tap-instruction">دوسي على الظرف يا هجورتي💌 🎀</div>
+        </div>
+
+        <!-- الرسالة -->
+        <div class="message-box" id="messageBox">
+            <div class="message-paper">
+                <div class="message-text" id="typewriterText">
+                    <span class="cursor"></span>
+                </div>
+                <a href="journey.html" class="continue-btn" id="startBtn">
+                    start🎂
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+(function() {
+    // تشفير النص بطريقة معكوسة مع إضافة أحرف عشوائية
+    const _0x4a2b = 'في#م يوم@ن عشرين$و من%ق أكتوبر!ز، الدنيا@م مكانتش#ن عارفة$و إنها%ق بتستقبل@ز قلب بالجمال ده!م، وإن اليوم#ق ده$ن مش هيكون@و يوم عادي أبدًا... ❤️🎂\n\nيمكن#م اليوم@ن ده بالنسبالناس$و مجرد تاريخ%ق في السنة!ز، لكن بالنسبالي@م هو يوم مميز#ن بطريقة مختلفة$و، لأنه اليوم@ق اللي اتولدت فيه إنتِي!ز، البنت اللي وجودها لوحده كفاية يخلّي للدنيا طعم تاني... ❤️\n\n<span class="highlight">كل#م سنة وإنتِ@ن طيبة يا هجورة$و، وكل سنة وإنتِ أجمل من السنة اللي قبلها%ق، وكل سنة وقلبك الحلو بخير!ز</span> ❤️\n\nوجودك#م من الحاجات@ن اللي بتخلّي الأيام العادية أحلى$و، واللحظات البسيطة ليها معنى%ق، والذكريات الصغيرة تستاهل إنها تفضل جوانا مهما عدّى الوقت... 🤍\n\n<span class="highlight">كل#ق سنة وإنتِ@ز أجمل صدفة$م، وأحلى نصيب%ن، وواحدة من ألطف الحاجات اللي الأيام جابتها في طريقي!و</span> 🤍\n\nإنتِ#م تستاهلي@ن كل الحب اللي في الدنيا$و، لمجرد إنك إنتِ%ق، بقلبك وروحك وكل التفاصيل الحلوة اللي بتميزك!ز ❤️\n\nيا#ن رب تكون@م كل السنين اللي جاية أحنّ عليكي$و من اللي فاتت%ق، وتكون أيامك مليانة فرحة وراحة بال!ز، وتحققي فيها كل اللي نفسك فيه... 💗\n\n<span class="highlight">عيد#م ميلاد سعيد يا هجورة@ن، يا صاحبة القلب الحلو والروح الجميلة$و، وكل سنة وإنتِ أجمل لقاء وأحلى نصيب وقدر من ربنا كتبه ليا%ق، وجمعني بيكي في يوم من الأيام!ز</span> 🎂💗\n\nويمكن#م أجمل هدية جابتهالي الأيام@ن إني قابلتك$و، وإن صدفة معرفتنا بقت ذكرى غالية على قلبي%ق، وحاجة حلوة بجد أنا مبسوط إنها حصلت!ز 🤍\n\nكل#ق سنة وإنتِ طيبة يا هجورة@م، وكل سنة وإنتِ أحلى حكاية بتكمّل فصولها$ن، ويا رب الأيام الجاية تكتب ليكي فرحة أكبر من كل اللي فات%و، وتكون سنتك الجديدة بداية لكل حاجة حلوة تستاهليها!ز ❤️🎀\n\n<p class="signature">Happy#م Birthday@ن, Hajoora$و 🎂❤️</p>';
+
+    
+    // دالة لإزالة الأحرف العشوائية
+    const _0x3f1d = (_0x1c3e) => {
+        let _0x2e4c = '';
+        const _0x5a7b = ['#', '@', '$', '%', '!'];
+        for(let i = 0; i < _0x1c3e.length; i++) {
+            let _0x6d8e = _0x1c3e[i];
+            let _0x4f2a = false;
+            for(let j = 0; j < _0x5a7b.length; j++) {
+                if(_0x6d8e === _0x5a7b[j]) {
+                    _0x4f2a = true;
+                    i++;
+                    break;
+                }
+            }
+            if(!_0x4f2a) _0x2e4c += _0x6d8e;
+        }
+        return _0x2e4c;
+    };
+
+    const _0x5e2a = _0x3f1d(_0x4a2b);
+
+    const _0x1a2b = {
+        _0x4c3d: document[['get','Element','By','Id'].join('')]('envelope'),
+        _0x2e5f: document[['get','Element','By','Id'].join('')]('messageBox'),
+        _0x3a6b: document[['get','Element','By','Id'].join('')]('typewriterText'),
+        _0x5d7c: document[['get','Element','By','Id'].join('')]('startBtn'),
+        _0x6e8d: 0x0,
+        _0x7f9e: ''
+    };
+
+    _0x1a2b._0x4c3d[['add','Event','Listener'].join('')](['cli','ck'].join(''), function() {
+        this[['class','List'].join('')][['a','dd'].join('')](['cli','cked'].join(''));
+        setTimeout(() => {
+            _0x1a2b._0x2e5f[['class','List'].join('')][['a','dd'].join('')](['sh','ow'].join(''));
+            setTimeout(() => _0x8a1c(), 0x1f4);
+        }, 0x320);
+    });
+
+    function _0x8a1c() {
+        if (_0x1a2b._0x6e8d < _0x5e2a.length) {
+            _0x1a2b._0x7f9e += _0x5e2a[['char','At'].join('')](_0x1a2b._0x6e8d);
+            _0x1a2b._0x3a6b[['inner','HTML'].join('')] = _0x1a2b._0x7f9e + '<span class="cursor"></span>';
+            _0x1a2b._0x6e8d++;
+            
+            const _0x9b2d = _0x5e2a[['char','At'].join('')](_0x1a2b._0x6e8d - 0x1) === '.' || 
+                           _0x5e2a[['char','At'].join('')](_0x1a2b._0x6e8d - 0x1) === '،' || 
+                           _0x5e2a[['char','At'].join('')](_0x1a2b._0x6e8d - 0x1) === '؟' ? 0x190 : 0x32;
+            
+            setTimeout(_0x8a1c, _0x9b2d);
+        } else {
+            _0x1a2b._0x5d7c[['class','List'].join('')][['a','dd'].join('')](['sh','ow'].join(''));
+        }
+    }
+})();
+</script>
+   
+
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>happy birthday🎂</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Amiri', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffc4d6 0%, #ffb3c6 25%, #ffa3b8 50%, #ff93aa 75%, #ff849c 100%);
+            overflow: relative;
+            position: relative;
+        }
+        .card-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            z-index: 10;
+        }
+        .cake-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 40px;
+            height: 200px;
+            width: 200px;
+        }
+        .layer {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%) translateY(-400px);
+            opacity: 0;
+            animation: dropDown 0.6s ease-out forwards;
+        }
+        @keyframes dropDown {
+            0% { opacity: 0; transform: translateX(-50%) translateY(-400px); }
+            60% { transform: translateX(-50%) translateY(8px); }
+            80% { transform: translateX(-50%) translateY(-3px); }
+            100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        .plate { bottom: 0; width: 180px; height: 15px; background: #e0d5c7; border-radius: 50%; animation-delay: 0.2s; }
+        .layer-1 { bottom: 15px; width: 150px; height: 35px; background: #d7ccc8; animation-delay: 0.5s; }
+        .layer-2 { bottom: 50px; width: 150px; height: 20px; background: #ffffff; animation-delay: 0.8s; }
+        .layer-3 { bottom: 70px; width: 150px; height: 35px; background: #ffcdd2; animation-delay: 1.1s; }
+        .layer-4 { bottom: 105px; width: 150px; height: 20px; background: #ffffff; animation-delay: 1.4s; }
+        .layer-5 { bottom: 125px; width: 150px; height: 35px; background: #efebe9; animation-delay: 1.7s; border-radius: 5px 5px 0 0; }
+        .candle-container {
+            position: absolute;
+            bottom: 160px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: candleAppear 0.6s ease-out 2s forwards;
+        }
+        @keyframes candleAppear {
+            0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+            100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        .candle {
+            width: 12px;
+            height: 40px;
+            background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+            border-radius: 2px;
+        }
+        .flame {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 18px;
+            background: #ffd700;
+            border-radius: 50% 50% 20% 20%;
+            animation: flicker 1s infinite;
+            box-shadow: 0 0 10px #ffa500;
+        }
+        @keyframes flicker {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+        }
+        .birthday-text {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5em;
+            color: #c2185b;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 2.5s forwards;
+            margin-bottom: 30px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* نموذج كلمة السر */
+        .password-section {
+            opacity: 0;
+            animation: fadeIn 1s ease-out 3.5s forwards;
+        }
+        
+        .password-label {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.3em;
+            color: #c2185b;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .password-input {
+            width: 100%;
+            max-width: 300px;
+            padding: 15px 20px;
+            font-size: 1.2em;
+            border: 2px solid rgba(194, 24, 91, 0.3);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #c2185b;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Amiri', serif;
+            margin-bottom: 20px;
+        }
+        
+        .password-input:focus {
+            border-color: #c2185b;
+            box-shadow: 0 0 15px rgba(194, 24, 91, 0.3);
+            background: #fff;
+        }
+        
+        .password-input::placeholder {
+            color: rgba(194, 24, 91, 0.5);
+        }
+        
+        .unlock-btn {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'Pacifico', cursive;
+        }
+        
+        .unlock-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 20, 147, 0.6);
+        }
+        
+        .unlock-btn:active {
+            transform: translateY(0);
+        }
+        
+        .error-message {
+            color: #ff1493;
+            font-size: 1.1em;
+            margin-top: 15px;
+            font-family: 'Amiri', serif;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        @media (max-width: 768px) {
+            .birthday-text {
+                font-size: 2em;
+            }
+            .password-label {
+                font-size: 1.1em;
+            }
+            .password-input {
+                font-size: 1em;
+            }
+            .unlock-btn {
+                font-size: 1.1em;
+                padding: 12px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="cake-wrapper">
+            <div class="layer plate"></div>
+            <div class="layer layer-1"></div>
+            <div class="layer layer-2"></div>
+            <div class="layer layer-3"></div>
+            <div class="layer layer-4"></div>
+            <div class="layer layer-5"></div>
+            <div class="candle-container">
+                <div class="flame"></div>
+                <div class="candle"></div>
+            </div>
+        </div>
+        <div class="birthday-text">Happy Birthday </div>
+        <div class="password-section">
+            <label class="password-label">password</label>
+        
+            <input 
+                type="password" 
+                id="passwordInput" 
+                class="password-input" 
+                placeholder="اكتبي الباسورد يهجورتي"
+                required
+            />
+        
+            <br>
+            <button type="button" class="unlock-btn" onclick="checkPassword()">🔓</button>
+        
+            <p class="error-message" id="errorMsg">❌ حاولي تاني يهجورتي</p>
+        </div>
+    </div>
+    
+
+ <script>
+// Anti-debugging Layer
+(function(){const _0x4a=['onload','now','clearInterval','confetti','particleCount','angle','spread','origin','colors','#ffcdd2','#f8bbd0','#fff','getElementById','passwordInput','addEventListener','input','value','replace'];(function(_0x2d8f,_0x5c1a){const _0x7e3b=function(_0x4f2c){while(--_0x4f2c){_0x2d8f['push'](_0x2d8f['shift']());}};_0x7e3b(++_0x5c1a);}(_0x4a,0x1d4));const _0x3f9e=function(_0x2d8f,_0x5c1a){_0x2d8f=_0x2d8f-0x0;let _0x7e3b=_0x4a[_0x2d8f];return _0x7e3b;};window[_0x3f9e('0x0')]=()=>{const _0x8d2a=0xf*0x3e8;const _0x6c4f=Date[_0x3f9e('0x1')]()+_0x8d2a;const _0x5b7e=setInterval(()=>{const _0x9a3c=_0x6c4f-Date[_0x3f9e('0x1')]();if(_0x9a3c<=0x0)return clearInterval(_0x5b7e);confetti({[_0x3f9e('0x4')]:0x2,[_0x3f9e('0x5')]:0x3c,[_0x3f9e('0x6')]:0x37,[_0x3f9e('0x7')]:{x:0x0},[_0x3f9e('0x8')]:[_0x3f9e('0x9'),_0x3f9e('0xa'),_0x3f9e('0xb')]});confetti({[_0x3f9e('0x4')]:0x2,[_0x3f9e('0x5')]:0x78,[_0x3f9e('0x6')]:0x37,[_0x3f9e('0x7')]:{x:0x1},[_0x3f9e('0x8')]:[_0x3f9e('0x9'),_0x3f9e('0xa'),_0x3f9e('0xb')]});},0x32);};document[_0x3f9e('0xc')](_0x3f9e('0xd'))[_0x3f9e('0xe')](_0x3f9e('0xf'),function(_0x7f2d){this[_0x3f9e('0x10')]=this[_0x3f9e('0x10')][_0x3f9e('0x11')](/[^0-9]/g,'');});})();
+
+// Additional Protection Layer
+(function(_0x1d7c,_0x8e4f){const _0x2b9a=function(_0x5c3d){while(--_0x5c3d){_0x1d7c['push'](_0x1d7c['shift']());}};const _0x6f8e=function(){const _0x4a2c={'data':{'key':'cookie','value':'timeout'},'setCookie':function(_0x3e7b,_0x9d2f,_0x5a8c,_0x1f6e){_0x1f6e=_0x1f6e||{};let _0x7c4a=_0x9d2f+'='+_0x5a8c;let _0x2d9f=0x0;for(let _0x8b3e=0x0,_0x4f1c=_0x3e7b['length'];_0x8b3e<_0x4f1c;_0x8b3e++){const _0x6a2d=_0x3e7b[_0x8b3e];_0x7c4a+=';\x20'+_0x6a2d;const _0x9e5f=_0x3e7b[_0x6a2d];_0x3e7b['push'](_0x9e5f);_0x4f1c=_0x3e7b['length'];if(_0x9e5f!==!![]){_0x7c4a+='='+_0x9e5f;}}_0x1f6e['cookie']=_0x7c4a;},'removeCookie':function(){return'dev';},'getCookie':function(_0x5d3a,_0x7e1b){_0x5d3a=_0x5d3a||function(_0x2c8f){return _0x2c8f;};const _0x4b9d=_0x5d3a(new RegExp('(?:^|;\x20)'+_0x7e1b['replace'](/([.$?*|{}()[]\/+^])/g,'$1')+'=([^;]*)'));const _0x8a6c=function(_0x3f2e,_0x9d7a){_0x3f2e(++_0x9d7a);};_0x8a6c(_0x2b9a,_0x8e4f);return _0x4b9d?decodeURIComponent(_0x4b9d[0x1]):undefined;}};const _0x6e5f=function(){const _0x1a8c=new RegExp('\x5cw+\x20*\x5c(\x5c)\x20*{\x5cw+\x20*[\x27|\x22].+[\x27|\x22];?\x20*}');return _0x1a8c['test'](_0x4a2c['removeCookie']['toString']());};_0x4a2c['updateCookie']=_0x6e5f;let _0x5c7d='';const _0x3d9e=_0x4a2c['updateCookie']();if(!_0x3d9e){_0x4a2c['setCookie'](['*'],'counter',0x1);}else if(_0x3d9e){_0x5c7d=_0x4a2c['getCookie'](null,'counter');}else{_0x4a2c['removeCookie']();}};_0x6f8e();}(['onload','now','clearInterval'],0x1f4));
+
+// Deep Obfuscation Layer
+(function(){const _0x2f=['contextmenu','keydown','preventDefault'];document['addEventListener'](_0x2f[0x0],_0x5a=>_0x5a[_0x2f[0x2]]());document['addEventListener'](_0x2f[0x1],_0x3e=>{if(_0x3e['ctrlKey']&&(_0x3e['key']==='u'||_0x3e['key']==='s'||_0x3e['key']==='c'||_0x3e['key']==='i')){_0x3e[_0x2f[0x2]]();return![];}if(_0x3e['key']==='F12'){_0x3e[_0x2f[0x2]]();return![];}});})();
+</script>
+<script>
+function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+    const errorMsg = document.getElementById("errorMsg");
+
+    // الباسورد الصح
+    const correctPassword = "21"; // غيره زي ما تحب
+
+    if (input === correctPassword) {
+        // احتفال 🎉
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+
+        // تحويل بعد ثانية
+        setTimeout(() => {
+            window.location.href = "main.html"; // الصفحة اللي بعدها
+        }, 1200);
+
+    } else {
+        errorMsg.classList.add("show");
+        setTimeout(() => {
+            errorMsg.classList.remove("show");
+        }, 1500);
+    }
+}
+</script>
+
+<style>
+body,input,* {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+}
+input {
+    -webkit-user-select: text !important;
+    user-select: text !important;
+}
+</style>
+
+</body>
+</html>
